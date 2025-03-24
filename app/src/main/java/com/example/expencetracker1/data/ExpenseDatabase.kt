@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [Expense::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class) // Add this line
+@TypeConverters(Converters::class)
 abstract class ExpenseDatabase : RoomDatabase() {
 
     abstract fun expenseDao(): ExpenseDao

@@ -5,12 +5,12 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import java.util.Date
+import androidx.room.Upsert
 
 @Dao
 interface ExpenseDao {
 
-    @Insert
+    @Upsert
     suspend fun insert(expense: Expense)
 
     @Delete
