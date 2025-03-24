@@ -3,6 +3,7 @@ package com.example.expencetracker1.uii
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.expencetracker1.data.Expense
@@ -18,7 +20,7 @@ import com.example.expencetracker1.data.ExpenseRepository
 import java.text.SimpleDateFormat
 import java.util.*
 
-val orange = Color(0xFFFFA500)
+val orange = Color(0xFFD78F3D)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -103,7 +105,6 @@ fun ExpenseItem(expense: Expense, onDelete: () -> Unit) {
         }
     }
 }
-
 @Composable
 fun AddExpenseDialog(onDismiss: () -> Unit, onAdd: (String, Double) -> Unit) {
     var title by remember { mutableStateOf("") }
@@ -122,8 +123,15 @@ fun AddExpenseDialog(onDismiss: () -> Unit, onAdd: (String, Double) -> Unit) {
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = amount,
-                    onValueChange = { amount = it },
-                    label = { Text("Amount") }
+                    onValueChange = { input ->
+                        if (input.all { it.isDigit() || it == '.' }) {
+                            amount = input
+                        }
+                    },
+                    label = { Text("Amount") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    )
                 )
             }
         },
