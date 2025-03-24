@@ -43,7 +43,7 @@ fun ExpenseTrackerApp(repository: ExpenseRepository) {
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             Text(
-                text = "Total Expenses: ₹${String.format("%.2f", totalExpenses ?: 0.0) }", // Handle null case
+                text = "Total Expenses: ₹${String.format(Locale.US, "%.2f", totalExpenses ?: 0.0)}", // Handle null case
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(16.dp),
                 color = orange
@@ -89,7 +89,7 @@ fun ExpenseItem(expense: Expense, onDelete: () -> Unit) {
                     )
                 }
                 Text(
-                    text = "₹${String.format("%.2f", expense.amount)}",
+                    text = "₹${String.format(Locale.US, "%.2f", expense.amount)}",
                     style = MaterialTheme.typography.titleMedium
                 )
             }
